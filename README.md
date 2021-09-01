@@ -1,0 +1,3 @@
+# autoscale
+
+Azure Autoscale module
