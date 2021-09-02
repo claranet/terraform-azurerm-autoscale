@@ -202,7 +202,7 @@ module "autoscale" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | `any` | n/a | yes |
+| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | `any` | `null` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
 | enable\_autoscale | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |

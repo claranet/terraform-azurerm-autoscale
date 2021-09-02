@@ -48,6 +48,7 @@ variable "target_resource_id" {
 variable "autoscale_profile" {
   type        = any
   description = "One or more (up to 20) autoscale profile blocks."
+  default     = null
 }
 
 variable "notification" {

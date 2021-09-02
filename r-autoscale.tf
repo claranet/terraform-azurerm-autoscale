@@ -7,7 +7,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
   enabled = var.enable_autoscale
 
   dynamic "profile" {
-    for_each = var.autoscale_profile
+    for_each = local.autoscale_profile
     content {
       name = profile.key
 
@@ -31,7 +31,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
             threshold          = lookup(rule.value.metric_trigger, "threshold")
             metric_namespace   = lookup(rule.value.metric_trigger, "metric_namespace", null)
             dynamic "dimensions" {
-              for_each = lookup(rule.value.metric_trigger, "dimensions", {})
+              for_each = try(lookup(rule.value.metric_trigger, "dimensions"), {})
               content {
                 name     = dimensions.name
                 operator = dimensions.operator
