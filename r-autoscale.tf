@@ -12,9 +12,9 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
       name = profile.key
 
       capacity {
-        default = lookup(profile.value.capacity, "default")
-        minimum = lookup(profile.value.capacity, "minimum")
-        maximum = lookup(profile.value.capacity, "maximum")
+        default = profile.value.capacity.default
+        minimum = profile.value.capacity.minimum
+        maximum = profile.value.capacity.maximum
       }
 
       dynamic "rule" {
