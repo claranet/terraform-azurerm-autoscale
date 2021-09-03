@@ -4,20 +4,20 @@ locals {
     stack = var.stack
   }
 
-  target_resource_family = element(split("/", var.target_resource_id), 7)
+  target_resource_family = lower(element(split("/", var.target_resource_id), 7))
   cpu_metric_name = tomap({
     # VMSS
-    "virtualMachineScaleSets" = "Percentage CPU"
+    lower("virtualMachineScaleSets") = "Percentage CPU"
     # App Service Plan
-    "serverFarms" = "CpuPercentage"
+    lower("serverFarms") = "CpuPercentage"
   })
 
   default_autoscale_profile = {
     "default" = {
       capacity = {
         default = 2
-        minimum = 1
-        maximum = 5
+        minimum = 2
+        maximum = var.default_autoscale_profile_maximum_capacity
       }
       rule = [
         {

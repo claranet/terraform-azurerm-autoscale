@@ -1,7 +1,7 @@
 # Azure Autoscale
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/autoscale/azurerm/)
 
-This Terraform module manage autoscale configuration on a given Azure resource.
+This Terraform module manage autoscale configuration on a given Azure resource. A default profile is already configured working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor metrics, percentage of used CPU and the used memory. The module manage to override it with custom profiles and rules.
 
 ## Version compatibility
 
@@ -205,6 +205,7 @@ module "autoscale" {
 | autoscale\_profile | One or more (up to 20) autoscale profile blocks. | `any` | `null` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
+| default\_autoscale\_profile\_maximum\_capacity | Maximum capacity for the default profile of Autoscale. | `number` | `5` | no |
 | enable\_autoscale | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate with your autoscale setting. | `map(string)` | `{}` | no |

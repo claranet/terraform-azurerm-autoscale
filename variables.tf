@@ -35,32 +35,38 @@ variable "name_prefix" {
 }
 
 variable "custom_autoscale_setting_name" {
-  type        = string
   description = "Custom Autoscale setting name"
+  type        = string
   default     = ""
 }
 
 variable "target_resource_id" {
-  type        = string
   description = "ID of the resource to apply the autoscale setting to."
+  type        = string
 }
 
 variable "autoscale_profile" {
-  type        = any
   description = "One or more (up to 20) autoscale profile blocks."
+  type        = any
   default     = null
 }
 
 variable "notification" {
-  type        = any
   description = "Manage emailing and webhooks for sending notifications."
+  type        = any
   default     = {}
 }
 
 variable "enable_autoscale" {
-  type        = bool
   description = "Specifies whether automatic scaling is enabled for the target resource."
+  type        = bool
   default     = true
+}
+
+variable "default_autoscale_profile_maximum_capacity" {
+  description = "Maximum capacity for the default profile of Autoscale."
+  type        = number
+  default     = 5
 }
 
 variable "extra_tags" {
@@ -71,24 +77,24 @@ variable "extra_tags" {
 
 ### LOGGING
 variable "logs_destinations_ids" {
-  type        = list(string)
   description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
+  type        = list(string)
 }
 
 variable "logs_categories" {
-  type        = list(string)
   description = "Log categories to send to destinations."
+  type        = list(string)
   default     = null
 }
 
 variable "logs_metrics_categories" {
-  type        = list(string)
   description = "Metrics categories to send to destinations."
+  type        = list(string)
   default     = null
 }
 
 variable "logs_retention_days" {
-  type        = number
   description = "Number of days to keep logs on storage account"
+  type        = number
   default     = 30
 }
