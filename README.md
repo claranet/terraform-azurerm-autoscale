@@ -1,7 +1,9 @@
 # Azure Autoscale
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/autoscale/azurerm/)
 
-This Terraform module manage autoscale configuration on a given Azure resource. A default profile is already configured working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor metrics, percentage of used CPU and the used memory. The module manage to override it with custom profiles and rules.
+This Terraform module manage autoscaling configuration on a given Azure resource. 
+
+This module comes with a default profile working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor CPU and memory metrics. Also, this module allows to override it with custom profiles and rules.
 
 ## Version compatibility
 
