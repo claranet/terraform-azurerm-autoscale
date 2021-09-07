@@ -33,10 +33,10 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location     = module.azure-region.location
-  client_name  = var.client_name
-  environment  = var.environment
-  stack        = var.stack
+  location    = module.azure-region.location
+  client_name = var.client_name
+  environment = var.environment
+  stack       = var.stack
 }
 
 module "vnet" {
@@ -93,7 +93,7 @@ module "linux-scaleset" {
   resource_group_name = module.rg.resource_group_name
 
   admin_username = "myusername"
-  ssh_public_key = var.ssh_public_key}
+  ssh_public_key = var.ssh_public_key
 
   vms_sku = "Standard_B2s"
 
@@ -229,6 +229,7 @@ module "autoscale" {
 |------|-------------|
 | autoscale\_setting\_id | Azure Autoscale setting ID |
 | autoscale\_setting\_name | Azure Autoscale setting name |
+| autoscale\_setting\_profile | Azure Autoscale setting profile |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
