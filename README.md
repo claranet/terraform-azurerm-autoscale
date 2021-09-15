@@ -5,11 +5,12 @@ This Terraform module manage autoscaling configuration on a given Azure resource
 
 This module comes with a default profile working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor CPU and memory metrics. Also, this module allows to override it with custom profiles and rules.
 
-## Version compatibility
+<!-- BEGIN_TF_DOCS -->
+## Global versionning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
-| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.74         |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
 | >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
@@ -17,8 +18,8 @@ This module comes with a default profile working with Virtual Machine Scale Sets
 
 ## Usage
 
-This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
-which set some terraform variables in the environment needed by this module.
+This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool 
+which set some terraform variables in the environment needed by this module. 
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
@@ -55,7 +56,7 @@ module "vnet" {
 
 module "subnet" {
   source  = "claranet/subnet/azurerm"
-  version = "4.2.1"
+  version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
@@ -179,9 +180,9 @@ module "autoscale" {
 
   logs_destinations_ids = [module.logs.log_analytics_workspace_id]
 }
+
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
