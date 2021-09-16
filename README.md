@@ -23,7 +23,7 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -34,7 +34,7 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure-region.location
+  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
@@ -47,8 +47,8 @@ module "vnet" {
   environment         = var.environment
   client_name         = var.client_name
   stack               = var.stack
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 
   vnet_cidr = ["192.168.0.0/21"]
@@ -61,7 +61,7 @@ module "subnet" {
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
-  location_short      = module.azure-region.location_short
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 
   virtual_network_name = module.vnet.virtual_network_name
@@ -76,21 +76,21 @@ module "logs" {
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 }
 
 
-module "linux-scaleset" {
+module "linux_scaleset" {
   source  = "claranet/linux-scaleset/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 
   admin_username = "myusername"
@@ -115,11 +115,11 @@ module "autoscale" {
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
 
-  target_resource_id = module.linux-scaleset.scale_set_id
+  target_resource_id = module.linux_scaleset.scale_set_id
 
   autoscale_profile = {
     "my-profile" = {
@@ -132,7 +132,7 @@ module "autoscale" {
         {
           metric_trigger = {
             metric_name        = "Percentage CPU"
-            metric_resource_id = module.linux-scaleset.scale_set_id
+            metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
             statistic          = "Average"
             time_window        = "PT5M"
@@ -152,7 +152,7 @@ module "autoscale" {
         {
           metric_trigger = {
             metric_name        = "Percentage CPU"
-            metric_resource_id = module.linux-scaleset.scale_set_id
+            metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
             statistic          = "Average"
             time_window        = "PT5M"
