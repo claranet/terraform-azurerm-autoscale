@@ -6,7 +6,7 @@ This Terraform module manage autoscaling configuration on a given Azure resource
 This module comes with a default profile working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor CPU and memory metrics. Also, this module allows to override it with custom profiles and rules.
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
