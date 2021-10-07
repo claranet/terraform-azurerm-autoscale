@@ -1,0 +1,58 @@
+location="fr-central"
+location_short="frc"
+client_name="test"
+environment="test"
+stack="ci"
+resource_group_name="test-rg"
+
+target_resource_id = "/subscriptions/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/resourceGroups/rg-test/providers/Microsoft.Compute/virtualMachineScaleSets/my-vmss"
+autoscale_profile = {
+  "my-profile" = {
+    capacity = {
+      default = 1
+      minimum = 1
+      maximum = 1
+    }
+    rule = [
+      {
+        metric_trigger = {
+          metric_name        = "Percentage CPU"
+          metric_resource_id = "/subscriptions/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/resourceGroups/rg-test/providers/Microsoft.Compute/virtualMachineScaleSets/my-vmss"
+          time_grain         = "PT1M"
+          statistic          = "Average"
+          time_window        = "PT5M"
+          time_aggregation   = "Average"
+          operator           = "GreaterThanOrEqual"
+          threshold          = 70
+          metric_namespace   = "microsoft.compute/virtualmachinescalesets"
+        }
+
+        scale_action = {
+          direction = "Increase"
+          type      = "ChangeCount"
+          value     = "1"
+          cooldown  = "PT1M"
+        }
+      },
+      {
+        metric_trigger = {
+          metric_name        = "Percentage CPU"
+          metric_resource_id = "/subscriptions/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/resourceGroups/rg-test/providers/Microsoft.Compute/virtualMachineScaleSets/my-vmss"
+          time_grain         = "PT1M"
+          statistic          = "Average"
+          time_window        = "PT5M"
+          time_aggregation   = "Average"
+          operator           = "LessThan"
+          threshold          = 25
+        }
+
+        scale_action = {
+          direction = "Decrease"
+          type      = "ChangeCount"
+          value     = "1"
+          cooldown  = "PT1M"
+        }
+      }
+    ]
+  }
+}
