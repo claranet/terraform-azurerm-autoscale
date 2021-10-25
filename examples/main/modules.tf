@@ -57,6 +57,20 @@ module "logs" {
 }
 
 
+module "az_monitor" {
+  source  = "claranet/run-iaas/azurerm//modules/vm-monitoring"
+  version = "x.x.x"
+
+  client_name    = var.client_name
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  environment    = var.environment
+  stack          = var.stack
+
+  resource_group_name        = module.rg.resource_group_name
+  log_analytics_workspace_id = module.logs.log_analytics_workspace_id
+}
+
 module "linux_scaleset" {
   source  = "claranet/linux-scaleset/azurerm"
   version = "x.x.x"
@@ -81,6 +95,10 @@ module "linux_scaleset" {
     sku       = "10"
     version   = "latest"
   }
+
+  azure_monitor_data_collection_rule_id = module.az_monitor.data_collection_rule_id
+  log_analytics_workspace_guid          = module.logs.log_analytics_workspace_guid
+  log_analytics_workspace_key           = module.logs.log_analytics_workspace_primary_key
 }
 
 module "autoscale" {
