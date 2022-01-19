@@ -205,18 +205,20 @@ module "autoscale" {
 
 | Name | Version |
 |------|---------|
+| azurecaf | ~> 1.1 |
 | azurerm | >= 2.74 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 4.0.3 |
+| diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [azurecaf_name.autoscale](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_monitor_autoscale_setting.autoscale](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/monitor_autoscale_setting) | resource |
 
 ## Inputs
@@ -226,6 +228,7 @@ module "autoscale" {
 | autoscale\_profile | One or more (up to 20) autoscale profile blocks. | `any` | `null` | no |
 | client\_name | Name of client | `string` | n/a | yes |
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
+| custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | default\_autoscale\_profile\_maximum\_capacity | Maximum capacity for the default profile of Autoscale. | `number` | `5` | no |
 | enable\_autoscale | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
@@ -236,11 +239,13 @@ module "autoscale" {
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
-| name\_prefix | Optional prefix for Autoscale setting name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | notification | Manage emailing and webhooks for sending notifications. | `any` | `{}` | no |
 | resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
 | stack | Name of application stack | `string` | n/a | yes |
 | target\_resource\_id | ID of the resource to apply the autoscale setting to. | `string` | n/a | yes |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_autoscale_setting_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 
 ## Outputs
 
