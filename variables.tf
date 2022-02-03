@@ -28,18 +28,6 @@ variable "location_short" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Optional prefix for Autoscale setting name"
-  type        = string
-  default     = ""
-}
-
-variable "custom_autoscale_setting_name" {
-  description = "Custom Autoscale setting name"
-  type        = string
-  default     = ""
-}
-
 variable "target_resource_id" {
   description = "ID of the resource to apply the autoscale setting to."
   type        = string
@@ -73,28 +61,4 @@ variable "extra_tags" {
   description = "Additional tags to associate with your autoscale setting."
   type        = map(string)
   default     = {}
-}
-
-### LOGGING
-variable "logs_destinations_ids" {
-  description = "List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging."
-  type        = list(string)
-}
-
-variable "logs_categories" {
-  description = "Log categories to send to destinations."
-  type        = list(string)
-  default     = null
-}
-
-variable "logs_metrics_categories" {
-  description = "Metrics categories to send to destinations."
-  type        = list(string)
-  default     = null
-}
-
-variable "logs_retention_days" {
-  description = "Number of days to keep logs on storage account"
-  type        = number
-  default     = 30
 }
