@@ -230,9 +230,10 @@ module "autoscale" {
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | default\_autoscale\_profile\_maximum\_capacity | Maximum capacity for the default profile of Autoscale. | `number` | `5` | no |
+| default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | enable\_autoscale | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |
 | environment | Name of application's environnement | `string` | n/a | yes |
-| extra\_tags | Additional tags to associate with your autoscale setting. | `map(string)` | `{}` | no |
+| extra\_tags | Additional tags to associate with your autoscale setting | `map(string)` | `{}` | no |
 | location | Azure location for Key Vault. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |

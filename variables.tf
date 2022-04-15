@@ -56,9 +56,3 @@ variable "default_autoscale_profile_maximum_capacity" {
   type        = number
   default     = 5
 }
-
-variable "extra_tags" {
-  description = "Additional tags to associate with your autoscale setting."
-  type        = map(string)
-  default     = {}
-}

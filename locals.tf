@@ -1,9 +1,4 @@
 locals {
-  default_tags = {
-    env   = var.environment
-    stack = var.stack
-  }
-
   target_resource_family = lower(element(split("/", var.target_resource_id), 7))
 
   autoscale_profile_scaleset = coalesce(var.autoscale_profile,
