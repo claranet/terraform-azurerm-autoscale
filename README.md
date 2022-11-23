@@ -206,7 +206,7 @@ module "autoscale" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | >= 2.74 |
+| azurerm | >= 3.22 |
 
 ## Modules
 
