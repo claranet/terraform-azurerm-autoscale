@@ -1,4 +1,4 @@
-resource "azurecaf_name" "autoscale" {
+data "azurecaf_name" "autoscale" {
   name          = var.stack
   resource_type = "azurerm_monitor_autoscale_setting"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
