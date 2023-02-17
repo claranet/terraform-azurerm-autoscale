@@ -1,7 +1,7 @@
 # Azure Autoscale
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/autoscale/azurerm/)
 
-This Terraform module manage autoscaling configuration on a given Azure resource. 
+This Terraform module manage autoscaling configuration on a given Azure resource.
 
 This module comes with a default profile working with Virtual Machine Scale Sets and App Service Plans based on Azure Monitor CPU and memory metrics. Also, this module allows to override it with custom profiles and rules.
 
@@ -17,6 +17,13 @@ This module comes with a default profile working with Virtual Machine Scale Sets
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
+
+## Contributing
+
+If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
+which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
+
+More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-request-process) file.
 
 ## Usage
 
@@ -258,7 +265,7 @@ module "autoscale" {
 <!-- END_TF_DOCS -->
 ## Related documentation
 
-Microsoft Azure documentation - Virtual Machine Scale Sets Autoscale: [docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview)  
+Microsoft Azure documentation - Virtual Machine Scale Sets Autoscale: [docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview)
 
 Microsoft Azure documentation - App Services Autoscale: [docs.microsoft.com/en-us/azure/app-service/manage-scale-up](https://docs.microsoft.com/en-us/azure/app-service/manage-scale-up)
 
