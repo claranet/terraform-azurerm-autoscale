@@ -78,8 +78,8 @@ module "subnet" {
 }
 
 
-module "logs" {
-  source  = "claranet/run-common/azurerm//modules/logs"
+module "run" {
+  source  = "claranet/run/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
@@ -88,21 +88,9 @@ module "logs" {
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
-}
 
-
-module "az_monitor" {
-  source  = "claranet/run-iaas/azurerm//modules/vm-monitoring"
-  version = "x.x.x"
-
-  client_name    = var.client_name
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  environment    = var.environment
-  stack          = var.stack
-
-  resource_group_name        = module.rg.resource_group_name
-  log_analytics_workspace_id = module.logs.log_analytics_workspace_id
+  monitoring_function_enabled = false
+  vm_monitoring_enabled       = true
 }
 
 module "linux_scaleset" {
@@ -131,7 +119,7 @@ module "linux_scaleset" {
     version   = "latest"
   }
 
-  azure_monitor_data_collection_rule_id = module.az_monitor.data_collection_rule_id
+  azure_monitor_data_collection_rule_id = module.run.data_collection_rule_id
 }
 
 module "autoscale" {
@@ -204,7 +192,7 @@ module "autoscale" {
     }
   }
 
-  logs_destinations_ids = [module.logs.log_analytics_workspace_id]
+  logs_destinations_ids = [module.run.log_analytics_workspace_id]
 }
 ```
 
