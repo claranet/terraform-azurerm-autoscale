@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1288: Remove `retention_days` parameters, it must be handled at destination level now. (for reference: [Provider issue](https://github.com/hashicorp/terraform-provider-azurerm/issues/23051))
+
 # v6.0.0 - 2022-11-25
 
 Breaking
