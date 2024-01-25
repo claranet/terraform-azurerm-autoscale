@@ -1,7 +1,7 @@
 resource "azurerm_monitor_autoscale_setting" "autoscale" {
   name                = local.autoscale_setting_name
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = local.resource_group_name
   target_resource_id  = var.target_resource_id
 
   enabled = var.enable_autoscale
@@ -42,16 +42,16 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
           }
 
           scale_action {
-            cooldown  = lookup(rule.value.scale_action, "cooldown")
-            direction = lookup(rule.value.scale_action, "direction")
-            type      = lookup(rule.value.scale_action, "type")
-            value     = lookup(rule.value.scale_action, "value")
+            cooldown  = rule.value.scale_action.cooldown
+            direction = rule.value.scale_action.direction
+            type      = rule.value.scale_action.type
+            value     = rule.value.scale_action.value
           }
         }
       }
 
       dynamic "fixed_date" {
-        for_each = try(profile.value.fixed_date, {})
+        for_each = profile.value.fixed_date[*]
         content {
           end      = fixed_date.value.end
           start    = fixed_date.value.start
@@ -60,7 +60,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
       }
 
       dynamic "recurrence" {
-        for_each = try(profile.value.recurrence, {})
+        for_each = profile.value.recurrence[*]
         content {
           timezone = recurrence.value.timezone
           days     = recurrence.value.days
