@@ -220,16 +220,15 @@ module "autoscale" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | `any` | `null` | no |
-| client\_name | Name of client | `string` | n/a | yes |
+| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | <pre>map(object({<br>    capacity = object({<br>      default = number<br>      minimum = optional(number, 1)<br>      maximum = optional(number, 5)<br>    })<br>    rule = optional(list(object({<br>      metric_trigger = optional(any)<br>      scale_action = optional(object({<br>        cooldown  = string<br>        direction = string<br>        type      = string<br>        value     = string<br>      }))<br>    })), [])<br>    fixed_date = optional(object({<br>      end      = string<br>      start    = string<br>      timezone = string<br>    }))<br>    recurrence = optional(object({<br>      timezone = string<br>      days     = list(string)<br>      hours    = list(number)<br>      minutes  = list(number)<br>    }))<br>  }))</pre> | `null` | no |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
-| default\_autoscale\_profile\_maximum\_capacity | Maximum capacity for the default profile of Autoscale. | `number` | `5` | no |
 | default\_tags\_enabled | Option to enable or disable default tags | `bool` | `true` | no |
 | enable\_autoscale | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |
-| environment | Name of application's environnement | `string` | n/a | yes |
+| environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate with your autoscale setting | `map(string)` | `{}` | no |
-| location | Azure location for Key Vault. | `string` | n/a | yes |
+| location | Azure location/region to use. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
@@ -237,8 +236,8 @@ module "autoscale" {
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | notification | Manage emailing and webhooks for sending notifications. | `any` | `{}` | no |
-| resource\_group\_name | Name of the application ressource group, herited from infra module | `string` | n/a | yes |
-| stack | Name of application stack | `string` | n/a | yes |
+| resource\_group\_name | Custom resource group name to attach autoscale configuration to. Target resource group by default. | `string` | `null` | no |
+| stack | Project stack name. | `string` | n/a | yes |
 | target\_resource\_id | ID of the resource to apply the autoscale setting to. | `string` | n/a | yes |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_autoscale_setting_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 

@@ -1,3 +1,9 @@
+# Unreleased
+
+Breaking
+  * AZ-1340: Rework module implementation, more compatible with Service Plan
+  * AZ-1340: Terraform 1.3 minimum version required, compatible with OpenTofu 1.6+
+
 # v6.1.0 - 2023-12-01
 
 Fixed
