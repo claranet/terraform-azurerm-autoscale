@@ -1,4 +1,4 @@
-# Unreleased
+# v7.0.0 - 2024-01-26
 
 Breaking
   * AZ-1340: Rework module implementation, more compatible with Service Plan
