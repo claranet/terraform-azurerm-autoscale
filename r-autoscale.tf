@@ -10,7 +10,6 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
     for_each = local.autoscale_profile
     content {
       name = profile.key
-
       capacity {
         default = profile.value.capacity.default
         minimum = profile.value.capacity.minimum
@@ -18,27 +17,28 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
       }
 
       dynamic "rule" {
-        for_each = try(profile.value.rule, [])
+        for_each = profile.value.rules
         content {
           metric_trigger {
-            metric_name        = lookup(rule.value.metric_trigger, "metric_name")
-            metric_resource_id = lookup(rule.value.metric_trigger, "metric_resource_id")
-            operator           = lookup(rule.value.metric_trigger, "operator")
-            statistic          = lookup(rule.value.metric_trigger, "statistic")
-            time_aggregation   = lookup(rule.value.metric_trigger, "time_aggregation")
-            time_grain         = lookup(rule.value.metric_trigger, "time_grain")
-            time_window        = lookup(rule.value.metric_trigger, "time_window")
-            threshold          = lookup(rule.value.metric_trigger, "threshold")
-            metric_namespace   = lookup(rule.value.metric_trigger, "metric_namespace", null)
+            metric_name              = rule.value.metric_trigger.metric_name
+            metric_resource_id       = rule.value.metric_trigger.metric_resource_id
+            operator                 = rule.value.metric_trigger.operator
+            statistic                = rule.value.metric_trigger.statistic
+            time_aggregation         = rule.value.metric_trigger.time_aggregation
+            time_grain               = rule.value.metric_trigger.time_grain
+            time_window              = rule.value.metric_trigger.time_window
+            threshold                = rule.value.metric_trigger.threshold
+            metric_namespace         = rule.value.metric_trigger.metric_namespace
+            divide_by_instance_count = rule.value.metric_trigger.divide_by_instance_count
+
             dynamic "dimensions" {
-              for_each = try(lookup(rule.value.metric_trigger, "dimensions"), {})
+              for_each = rule.value.metric_trigger.dimensions
               content {
-                name     = dimensions.name
-                operator = dimensions.operator
-                values   = dimensions.values
+                name     = dimensions.value.name
+                operator = dimensions.value.operator
+                values   = dimensions.value.values
               }
             }
-            divide_by_instance_count = lookup(rule.value.metric_trigger, "divide_by_instance_count", null)
           }
 
           scale_action {
@@ -72,18 +72,21 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
   }
 
   dynamic "notification" {
-    for_each = var.notification != {} ? ["notification"] : []
+    for_each = var.notification[*]
     content {
-      email {
-        send_to_subscription_administrator    = lookup(var.notification.email, "send_to_subscription_administrator", false)
-        send_to_subscription_co_administrator = lookup(var.notification.email, "send_to_subscription_co_administrator", false)
-        custom_emails                         = lookup(var.notification.email, "custom_emails", [])
+      dynamic "email" {
+        for_each = notification.value.email[*]
+        content {
+          send_to_subscription_administrator    = email.value.send_to_subscription_administrator
+          send_to_subscription_co_administrator = email.value.send_to_subscription_co_administrator
+          custom_emails                         = email.value.custom_emails
+        }
       }
       dynamic "webhook" {
-        for_each = try(var.notification.webhook, {})
+        for_each = notification.value.webhooks
         content {
-          service_uri = webhook.service_uri
-          properties  = webhook.properties
+          service_uri = webhook.value.service_uri
+          properties  = webhook.value.properties
         }
       }
     }
