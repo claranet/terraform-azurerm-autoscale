@@ -17,14 +17,30 @@ variable "autoscale_profile" {
       minimum = optional(number, 1)
       maximum = optional(number, 5)
     })
-    rule = optional(list(object({
-      metric_trigger = optional(any)
-      scale_action = optional(object({
+    rules = optional(list(object({
+      metric_trigger = object({
+        metric_name              = string
+        metric_resource_id       = string
+        operator                 = string
+        statistic                = string
+        time_aggregation         = string
+        time_grain               = string
+        time_window              = string
+        threshold                = number
+        metric_namespace         = optional(string)
+        divide_by_instance_count = optional(bool)
+        dimensions = optional(list(object({
+          name     = string
+          operator = string
+          values   = list(string)
+        })), [])
+      })
+      scale_action = object({
         cooldown  = string
         direction = string
         type      = string
-        value     = string
-      }))
+        value     = number
+      })
     })), [])
     fixed_date = optional(object({
       end      = string
@@ -38,13 +54,23 @@ variable "autoscale_profile" {
       minutes  = list(number)
     }))
   }))
-  default = null
+  default = {}
 }
 
 variable "notification" {
   description = "Manage emailing and webhooks for sending notifications."
-  type        = any
-  default     = {}
+  type = object({
+    email = optional(object({
+      send_to_subscription_administrator    = optional(bool, false)
+      send_to_subscription_co_administrator = optional(bool, false)
+      custom_emails                         = optional(list(string))
+    }))
+    webhooks = optional(list(object({
+      service_uri = string
+      properties  = optional(map(string))
+    })), [])
+  })
+  default = null
 }
 
 variable "enable_autoscale" {

@@ -108,7 +108,7 @@ module "autoscale" {
         minimum = 1
         maximum = 1
       }
-      rule = [
+      rules = [
         {
           metric_trigger = {
             metric_name        = "Percentage CPU"
