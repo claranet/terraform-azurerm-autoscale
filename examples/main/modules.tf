@@ -102,11 +102,11 @@ module "autoscale" {
   target_resource_id = module.linux_scaleset.scale_set_id
 
   autoscale_profile = {
-    "my-profile" = {
+    "default" = {
       capacity = {
-        default = 1
-        minimum = 1
-        maximum = 1
+        default = 2
+        minimum = 2
+        maximum = 5
       }
       rules = [
         {
@@ -114,11 +114,11 @@ module "autoscale" {
             metric_name        = "Percentage CPU"
             metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
-            statistic          = "Average"
             time_window        = "PT5M"
             time_aggregation   = "Average"
+            statistic          = "Average"
             operator           = "GreaterThanOrEqual"
-            threshold          = 70
+            threshold          = 75
             metric_namespace   = "microsoft.compute/virtualmachinescalesets"
           }
 
@@ -134,11 +134,12 @@ module "autoscale" {
             metric_name        = "Percentage CPU"
             metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
-            statistic          = "Average"
             time_window        = "PT5M"
             time_aggregation   = "Average"
+            statistic          = "Average"
             operator           = "LessThan"
             threshold          = 25
+            metric_namespace   = "microsoft.compute/virtualmachinescalesets"
           }
 
           scale_action = {
