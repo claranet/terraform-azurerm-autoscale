@@ -1,3 +1,23 @@
+## 7.0.2 (2024-09-27)
+
+### Bug Fixes
+
+* **AZ-1463:** remove default autoscale_profile local e79e65d
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.2 14bd783
+* **deps:** update dependency terraform-docs to v0.19.0 f140103
+* **deps:** update dependency trivy to v0.55.0 e4abf73
+* **deps:** update dependency trivy to v0.55.1 490246a
+* **deps:** update dependency trivy to v0.55.2 870708c
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.18.0 4c498b3
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.2 d1cd028
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.94.3 87e66c3
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.95.0 a94eb93
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.0 750147d
+* **deps:** update pre-commit hook antonbabenko/pre-commit-terraform to v1.96.1 9950c78
+
 ## 7.0.1 (2024-09-03)
 
 ### Bug Fixes
