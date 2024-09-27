@@ -136,11 +136,11 @@ module "autoscale" {
   target_resource_id = module.linux_scaleset.scale_set_id
 
   autoscale_profile = {
-    "my-profile" = {
+    "default" = {
       capacity = {
-        default = 1
-        minimum = 1
-        maximum = 1
+        default = 2
+        minimum = 2
+        maximum = 5
       }
       rules = [
         {
@@ -148,11 +148,11 @@ module "autoscale" {
             metric_name        = "Percentage CPU"
             metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
-            statistic          = "Average"
             time_window        = "PT5M"
             time_aggregation   = "Average"
+            statistic          = "Average"
             operator           = "GreaterThanOrEqual"
-            threshold          = 70
+            threshold          = 75
             metric_namespace   = "microsoft.compute/virtualmachinescalesets"
           }
 
@@ -168,11 +168,12 @@ module "autoscale" {
             metric_name        = "Percentage CPU"
             metric_resource_id = module.linux_scaleset.scale_set_id
             time_grain         = "PT1M"
-            statistic          = "Average"
             time_window        = "PT5M"
             time_aggregation   = "Average"
+            statistic          = "Average"
             operator           = "LessThan"
             threshold          = 25
+            metric_namespace   = "microsoft.compute/virtualmachinescalesets"
           }
 
           scale_action = {
@@ -220,7 +221,7 @@ module "autoscale" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | <pre>map(object({<br>    capacity = object({<br>      default = number<br>      minimum = optional(number, 1)<br>      maximum = optional(number, 5)<br>    })<br>    rules = optional(list(object({<br>      metric_trigger = object({<br>        metric_name              = string<br>        metric_resource_id       = string<br>        operator                 = string<br>        statistic                = string<br>        time_aggregation         = string<br>        time_grain               = string<br>        time_window              = string<br>        threshold                = number<br>        metric_namespace         = optional(string)<br>        divide_by_instance_count = optional(bool)<br>        dimensions = optional(list(object({<br>          name     = string<br>          operator = string<br>          values   = list(string)<br>        })), [])<br>      })<br>      scale_action = object({<br>        cooldown  = string<br>        direction = string<br>        type      = string<br>        value     = number<br>      })<br>    })), [])<br>    fixed_date = optional(object({<br>      end      = string<br>      start    = string<br>      timezone = string<br>    }))<br>    recurrence = optional(object({<br>      timezone = string<br>      days     = list(string)<br>      hours    = list(number)<br>      minutes  = list(number)<br>    }))<br>  }))</pre> | `{}` | no |
+| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | <pre>map(object({<br>    capacity = object({<br>      default = number<br>      minimum = optional(number, 1)<br>      maximum = optional(number, 5)<br>    })<br>    rules = optional(list(object({<br>      metric_trigger = object({<br>        metric_name              = string<br>        metric_resource_id       = string<br>        operator                 = string<br>        statistic                = string<br>        time_aggregation         = string<br>        time_grain               = string<br>        time_window              = string<br>        threshold                = number<br>        metric_namespace         = optional(string)<br>        divide_by_instance_count = optional(bool)<br>        dimensions = optional(list(object({<br>          name     = string<br>          operator = string<br>          values   = list(string)<br>        })), [])<br>      })<br>      scale_action = object({<br>        cooldown  = string<br>        direction = string<br>        type      = string<br>        value     = number<br>      })<br>    })), [])<br>    fixed_date = optional(object({<br>      end      = string<br>      start    = string<br>      timezone = string<br>    }))<br>    recurrence = optional(object({<br>      timezone = string<br>      days     = list(string)<br>      hours    = list(number)<br>      minutes  = list(number)<br>    }))<br>  }))</pre> | n/a | yes |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_autoscale\_setting\_name | Custom Autoscale setting name | `string` | `""` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
@@ -247,7 +248,6 @@ module "autoscale" {
 |------|-------------|
 | autoscale\_setting\_id | Azure Autoscale setting ID |
 | autoscale\_setting\_name | Azure Autoscale setting name |
-| autoscale\_setting\_profile | Azure Autoscale setting profile |
 <!-- END_TF_DOCS -->
 ## Related documentation
 

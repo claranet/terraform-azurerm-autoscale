@@ -54,7 +54,6 @@ variable "autoscale_profile" {
       minutes  = list(number)
     }))
   }))
-  default = {}
 }
 
 variable "notification" {

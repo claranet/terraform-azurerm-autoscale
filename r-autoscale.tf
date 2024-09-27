@@ -7,7 +7,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
   enabled = var.enable_autoscale
 
   dynamic "profile" {
-    for_each = local.autoscale_profile
+    for_each = var.autoscale_profile
     content {
       name = profile.key
       capacity {
