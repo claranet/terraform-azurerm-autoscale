@@ -1,3 +1,19 @@
+## 7.1.0 (2024-10-07)
+
+### Features
+
+* use Claranet "azurecaf" provider 9880af0
+
+### Documentation
+
+* update README badge to use OpenTofu registry 2492655
+* update README with `terraform-docs` v0.19.0 3637141
+
+### Miscellaneous Chores
+
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v7 b5b02f1
+* prepare for new examples structure 027b79f
+
 ## 7.0.2 (2024-09-27)
 
 ### Bug Fixes
