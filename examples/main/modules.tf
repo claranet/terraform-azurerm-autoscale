@@ -9,7 +9,7 @@ module "vnet" {
   location_short      = module.azure_region.location_short
   resource_group_name = module.rg.name
 
-  vnet_cidr = ["192.168.0.0/21"]
+  cidrs = ["192.168.0.0/21"]
 }
 
 module "subnet" {
@@ -23,7 +23,7 @@ module "subnet" {
   resource_group_name = module.rg.name
 
   virtual_network_name = module.vnet.name
-  subnet_cidr_list     = ["192.168.0.0/24"]
+  cidrs                = ["192.168.0.0/24"]
 }
 
 module "linux_scaleset" {

@@ -47,7 +47,7 @@ module "vnet" {
   location_short      = module.azure_region.location_short
   resource_group_name = module.rg.name
 
-  vnet_cidr = ["192.168.0.0/21"]
+  cidrs = ["192.168.0.0/21"]
 }
 
 module "subnet" {
@@ -61,7 +61,7 @@ module "subnet" {
   resource_group_name = module.rg.name
 
   virtual_network_name = module.vnet.name
-  subnet_cidr_list     = ["192.168.0.0/24"]
+  cidrs                = ["192.168.0.0/24"]
 }
 
 module "linux_scaleset" {
@@ -193,7 +193,6 @@ module "autoscale" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | autoscale\_enabled | Specifies whether automatic scaling is enabled for the target resource. | `bool` | `true` | no |
-| autoscale\_profile | One or more (up to 20) autoscale profile blocks. | <pre>map(object({<br/>    capacity = object({<br/>      default = number<br/>      minimum = optional(number, 1)<br/>      maximum = optional(number, 5)<br/>    })<br/>    rules = optional(list(object({<br/>      metric_trigger = object({<br/>        metric_name              = string<br/>        metric_resource_id       = string<br/>        operator                 = string<br/>        statistic                = string<br/>        time_aggregation         = string<br/>        time_grain               = string<br/>        time_window              = string<br/>        threshold                = number<br/>        metric_namespace         = optional(string)<br/>        divide_by_instance_count = optional(bool)<br/>        dimensions = optional(list(object({<br/>          name     = string<br/>          operator = string<br/>          values   = list(string)<br/>        })), [])<br/>      })<br/>      scale_action = object({<br/>        cooldown  = string<br/>        direction = string<br/>        type      = string<br/>        value     = number<br/>      })<br/>    })), [])<br/>    fixed_date = optional(object({<br/>      end      = string<br/>      start    = string<br/>      timezone = string<br/>    }))<br/>    recurrence = optional(object({<br/>      timezone = string<br/>      days     = list(string)<br/>      hours    = list(number)<br/>      minutes  = list(number)<br/>    }))<br/>  }))</pre> | n/a | yes |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | custom\_name | Custom name for Autoscale setting, generated if not set. | `string` | `""` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
@@ -208,6 +207,7 @@ module "autoscale" {
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | notification | Manage emailing and webhooks for sending notifications. | <pre>object({<br/>    email = optional(object({<br/>      send_to_subscription_administrator    = optional(bool, false)<br/>      send_to_subscription_co_administrator = optional(bool, false)<br/>      custom_emails                         = optional(list(string))<br/>    }))<br/>    webhooks = optional(list(object({<br/>      service_uri = string<br/>      properties  = optional(map(string))<br/>    })), [])<br/>  })</pre> | `null` | no |
+| profile | One or more (up to 20) autoscale profile blocks. | <pre>map(object({<br/>    capacity = object({<br/>      default = number<br/>      minimum = optional(number, 1)<br/>      maximum = optional(number, 5)<br/>    })<br/>    rules = optional(list(object({<br/>      metric_trigger = object({<br/>        metric_name              = string<br/>        metric_resource_id       = string<br/>        operator                 = string<br/>        statistic                = string<br/>        time_aggregation         = string<br/>        time_grain               = string<br/>        time_window              = string<br/>        threshold                = number<br/>        metric_namespace         = optional(string)<br/>        divide_by_instance_count = optional(bool)<br/>        dimensions = optional(list(object({<br/>          name     = string<br/>          operator = string<br/>          values   = list(string)<br/>        })), [])<br/>      })<br/>      scale_action = object({<br/>        cooldown  = string<br/>        direction = string<br/>        type      = string<br/>        value     = number<br/>      })<br/>    })), [])<br/>    fixed_date = optional(object({<br/>      end      = string<br/>      start    = string<br/>      timezone = string<br/>    }))<br/>    recurrence = optional(object({<br/>      timezone = string<br/>      days     = list(string)<br/>      hours    = list(number)<br/>      minutes  = list(number)<br/>    }))<br/>  }))</pre> | n/a | yes |
 | resource\_group\_name | Custom resource group name to attach autoscale configuration to. Target resource group by default. | `string` | `null` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | target\_resource\_id | ID of the resource to apply the autoscale setting to. | `string` | n/a | yes |
