@@ -1,24 +1,24 @@
 variable "client_name" {
-  description = "Name of client"
+  description = "Client name/account used in naming."
   type        = string
 }
 
 variable "environment" {
-  description = "Name of application's environnement"
+  description = "Project environment."
   type        = string
 }
 
 variable "stack" {
-  description = "Name of application stack"
+  description = "Project stack name."
   type        = string
 }
 
 variable "azure_region" {
-  description = "Azure region"
+  description = "Azure region to use."
   type        = string
 }
 
 variable "ssh_public_key" {
-  description = "SSH public key for VMSS"
+  description = "SSH public key to authorize on VMSS's instances."
   type        = string
 }

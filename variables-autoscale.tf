@@ -72,7 +72,7 @@ variable "notification" {
   default = null
 }
 
-variable "enable_autoscale" {
+variable "autoscale_enabled" {
   description = "Specifies whether automatic scaling is enabled for the target resource."
   type        = bool
   default     = true

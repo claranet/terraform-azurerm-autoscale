@@ -1,10 +1,10 @@
-resource "azurerm_monitor_autoscale_setting" "autoscale" {
-  name                = local.autoscale_setting_name
+resource "azurerm_monitor_autoscale_setting" "main" {
+  name                = local.name
   location            = var.location
   resource_group_name = local.resource_group_name
   target_resource_id  = var.target_resource_id
 
-  enabled = var.enable_autoscale
+  enabled = var.autoscale_enabled
 
   dynamic "profile" {
     for_each = var.autoscale_profile
@@ -93,4 +93,9 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
+}
+
+moved {
+  from = azurerm_monitor_autoscale_setting.autoscale
+  to   = azurerm_monitor_autoscale_setting.main
 }

@@ -1,20 +1,3 @@
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-
 module "vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
@@ -24,7 +7,7 @@ module "vnet" {
   stack               = var.stack
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   vnet_cidr = ["192.168.0.0/21"]
 }
@@ -37,26 +20,10 @@ module "subnet" {
   environment         = var.environment
   stack               = var.stack
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
-  virtual_network_name = module.vnet.virtual_network_name
+  virtual_network_name = module.vnet.name
   subnet_cidr_list     = ["192.168.0.0/24"]
-}
-
-
-module "run" {
-  source  = "claranet/run/azurerm"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
-
-  monitoring_function_enabled = false
-  vm_monitoring_enabled       = true
 }
 
 module "linux_scaleset" {
@@ -69,14 +36,14 @@ module "linux_scaleset" {
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   admin_username = "myusername"
   ssh_public_key = var.ssh_public_key
 
   vms_size = "Standard_B2s"
 
-  subnet_id = module.subnet.subnet_id
+  subnet_id = module.subnet.id
 
   source_image_reference = {
     publisher = "Debian"
@@ -97,9 +64,9 @@ module "autoscale" {
   stack               = var.stack
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
-  target_resource_id = module.linux_scaleset.scale_set_id
+  target_resource_id = module.linux_scaleset.id
 
   autoscale_profile = {
     "default" = {
@@ -112,7 +79,7 @@ module "autoscale" {
         {
           metric_trigger = {
             metric_name        = "Percentage CPU"
-            metric_resource_id = module.linux_scaleset.scale_set_id
+            metric_resource_id = module.linux_scaleset.id
             time_grain         = "PT1M"
             time_window        = "PT5M"
             time_aggregation   = "Average"
@@ -132,7 +99,7 @@ module "autoscale" {
         {
           metric_trigger = {
             metric_name        = "Percentage CPU"
-            metric_resource_id = module.linux_scaleset.scale_set_id
+            metric_resource_id = module.linux_scaleset.id
             time_grain         = "PT1M"
             time_window        = "PT5M"
             time_aggregation   = "Average"
