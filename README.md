@@ -36,34 +36,6 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "vnet" {
-  source  = "claranet/vnet/azurerm"
-  version = "x.x.x"
-
-  environment         = var.environment
-  client_name         = var.client_name
-  stack               = var.stack
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.name
-
-  cidrs = ["192.168.0.0/21"]
-}
-
-module "subnet" {
-  source  = "claranet/subnet/azurerm"
-  version = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  stack               = var.stack
-  location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.name
-
-  virtual_network_name = module.vnet.name
-  cidrs                = ["192.168.0.0/24"]
-}
-
 module "linux_scaleset" {
   source  = "claranet/linux-scaleset/azurerm"
   version = "x.x.x"
@@ -79,9 +51,11 @@ module "linux_scaleset" {
   admin_username = "myusername"
   ssh_public_key = var.ssh_public_key
 
-  vms_size = "Standard_B2s"
+  vm_size = "Standard_B2s"
 
-  subnet_id = module.subnet.id
+  subnet = {
+    id = module.subnet.id
+  }
 
   source_image_reference = {
     publisher = "Debian"
@@ -90,7 +64,13 @@ module "linux_scaleset" {
     version   = "latest"
   }
 
-  azure_monitor_data_collection_rule_id = module.run.data_collection_rule_id
+  azure_monitor_data_collection_rule = {
+    id = module.run.data_collection_rule_id
+  }
+
+  identity = {
+    type = "SystemAssigned"
+  }
 }
 
 module "autoscale" {
@@ -106,7 +86,7 @@ module "autoscale" {
 
   target_resource_id = module.linux_scaleset.id
 
-  autoscale_profile = {
+  profile = {
     "default" = {
       capacity = {
         default = 2
