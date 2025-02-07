@@ -9,7 +9,7 @@ variable "resource_group_name" {
   default     = null
 }
 
-variable "autoscale_profile" {
+variable "profile" {
   description = "One or more (up to 20) autoscale profile blocks."
   type = map(object({
     capacity = object({
@@ -72,7 +72,7 @@ variable "notification" {
   default = null
 }
 
-variable "enable_autoscale" {
+variable "autoscale_enabled" {
   description = "Specifies whether automatic scaling is enabled for the target resource."
   type        = bool
   default     = true

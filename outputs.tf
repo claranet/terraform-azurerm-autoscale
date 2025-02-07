@@ -1,9 +1,19 @@
-output "autoscale_setting_id" {
-  value       = azurerm_monitor_autoscale_setting.autoscale.id
-  description = "Azure Autoscale setting ID"
+output "resource" {
+  description = "Azure Autoscale setting resource object."
+  value       = azurerm_monitor_autoscale_setting.main
 }
 
-output "autoscale_setting_name" {
-  value       = local.autoscale_setting_name
-  description = "Azure Autoscale setting name"
+output "module_diagnostics" {
+  description = "Diagnostics Settings module output."
+  value       = module.diagnostics
+}
+
+output "id" {
+  description = "ID of the Azure Autoscale setting."
+  value       = azurerm_monitor_autoscale_setting.main.id
+}
+
+output "name" {
+  description = "Name of the Azure Autoscale setting."
+  value       = local.name
 }
