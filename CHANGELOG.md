@@ -1,3 +1,43 @@
+## 8.0.1 (2025-09-30)
+
+### Code Refactoring
+
+* **deps:** 🔗 update claranet/azurecaf to ~> 1.3.0 🔧 5cdaca8
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review 242efc1
+* 🗑️ remove old commitlint configuration files 9d644e2
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ 74aa780
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to ~> 8.1.0 907f867
+* **deps:** update dependency opentofu to v1.10.0 2cd4219
+* **deps:** update dependency opentofu to v1.10.1 b8afd4c
+* **deps:** update dependency opentofu to v1.10.3 2abecdc
+* **deps:** update dependency opentofu to v1.10.6 3165c07
+* **deps:** update dependency opentofu to v1.9.1 f160066
+* **deps:** update dependency pre-commit to v4.2.0 de4e03f
+* **deps:** update dependency terraform-docs to v0.20.0 c8e45c6
+* **deps:** update dependency tflint to v0.56.0 b86eb70
+* **deps:** update dependency tflint to v0.58.0 0d08667
+* **deps:** update dependency tflint to v0.58.1 673db43
+* **deps:** update dependency tflint to v0.59.1 6fecbec
+* **deps:** update dependency trivy to v0.60.0 6b4d73e
+* **deps:** update dependency trivy to v0.61.0 dc3e7b1
+* **deps:** update dependency trivy to v0.61.1 ef81971
+* **deps:** update dependency trivy to v0.63.0 c206bcd
+* **deps:** update dependency trivy to v0.66.0 085e76c
+* **deps:** update dependency trivy to v0.67.0 4c6479b
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 3f0f80f
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 bc0fdcb
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 03f8ea6
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 e283d93
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 f4fa8d8
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 8.2.0 c60081f
+* **deps:** update tools d5462c5
+* **deps:** update tools c09d330
+* **deps:** update tools 867876a
+* **deps:** update tools d9835a2
+
 ## 8.0.0 (2025-02-07)
 
 ### ⚠ BREAKING CHANGES
