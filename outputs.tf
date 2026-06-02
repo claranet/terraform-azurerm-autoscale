@@ -1,6 +1,7 @@
 output "resource" {
   description = "Azure Autoscale setting resource object."
   value       = azurerm_monitor_autoscale_setting.main
+  sensitive   = true
 }
 
 output "module_diagnostics" {
